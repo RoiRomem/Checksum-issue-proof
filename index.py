@@ -34,43 +34,17 @@ def checkForEqualChecksum():
             with f_lock:
                 f.write(f'array1- {jpre} \narray2- {kpre} \nboth are equal to: {j} \n total runs by this thread: {totalRunsByThread}    the amount of proof we found with this thread: {totalFoundByThread} \n\n\n\n') 
  
-
-
-
 # setup threads
-t1 = threading.Thread(target=checkForEqualChecksum)
-t2 = threading.Thread(target=checkForEqualChecksum)
-t3 = threading.Thread(target=checkForEqualChecksum)
-t4 = threading.Thread(target=checkForEqualChecksum)
-t5 = threading.Thread(target=checkForEqualChecksum)
-t6 = threading.Thread(target=checkForEqualChecksum)
-t7 = threading.Thread(target=checkForEqualChecksum)
-t8 = threading.Thread(target=checkForEqualChecksum)
-t9 = threading.Thread(target=checkForEqualChecksum)
-t10 = threading.Thread(target=checkForEqualChecksum)
+threads = []
 
-# start threads
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-t6.start()
-t7.start()
-t8.start()
-t9.start()
-t10.start()
+# Create and start threads
+for _ in range(20):
+    thread = threading.Thread(target=checkForEqualChecksum)
+    thread.start()
+    threads.append(thread)
 
-# wait for threads to finish
-t1.join()
-t2.join()
-t3.join()
-t4.join()
-t5.join()
-t6.join()
-t7.join()
-t8.join()
-t9.join()
-t10.join()
+# Wait for threads to finish
+for thread in threads:
+    thread.join()
 
 print("something wrong we got an infinite loop how are you here mate")
